@@ -1,40 +1,84 @@
 #pragma once
+
+#include <string.h>
+#include <math.h>
+
 #ifndef IMAGE_H 
 
-// 255 * 4 
-#define MAX_COLOR_VAL 2000
+// Mysterious value that can define the image quality 
+#define MAX_COLOR_VAL 2500 
+/*
+typedef struct {
+
+	int w_flag;
+	int h_flag;
+	int f_flag;
+
+	char* width_val;
+	char* height_val;
+	char* filename_val;
+} Arguments;
+*/
 
 /*
- *	IMAGE STRUCT TO STORE PIXEL DATA
+ *	PIXEL STRUCT TO STORE RGBA COLORS AND POSITIONS OF EACH PIXEL 
  * */
 typedef struct {
 
-	int r_val; // Red 
-	int g_val; // Green
-	int b_val; // Blue
-	float a_val; // Alpha (image opacity)
-	//
-	float intensity_val; // 
-	//
+	unsigned int r_val; // Red 
+	unsigned int g_val; // Green
+	unsigned int b_val; // Blue
+	float a_val;	    // Alpha 
+	
+	float intensity_val; 
+	
 	int x_pos;
 	int y_pos;
+} Pixels;
 
-} Pixel;
+/*
+ *	IMAGE STRUCT TO STORE PIXEL AND IMAGE DATA 
+ * */
 
 typedef struct {
 
-	// RGBA so channels = 4 bytes (because 4 color channels)
-	// RGB so channels = 3 bytes (because 3 color channels)
+	Pixels pixel;
+
+	// For color channels, 
+	// RGBA = 4 bytes / RGB = 3 bytes
 	int channels;
 
 	int width;
 	int height;
-	int total_size;
+
+	// To handle data received by stb_load function
+	unsigned char *all_data;
 } Image;
 
-/*	FUNCTIONS DECLARATIONs	*/
+/*	
+ *	INLINE FUNCTIONS
+ */
 
-extern char intensityToChar(float intensity);
-extern float calculateIntensity(int r, int g, int b, float a);
+static inline char intensityToChar(float intensity) {
+
+	/*	Target a char in the CHARACTERS array depend 
+	 *	on the intensity of each pixels
+	 * */
+	char CHARACTERS[] = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+	return CHARACTERS[(int) round(intensity * strlen(CHARACTERS))];
+}
+
+static inline float calculateIntensity(
+	int r, int g, int b, float a) 
+{
+	return ((r + g + b + a) / MAX_COLOR_VAL); 
+}
+
+/*
+ *	FUNCTIONS DECLARATIONS, DEFINITIONS ARE IN THE image.c file
+*/
+
+extern void displayASCII(Image img);
+extern unsigned char* resizeImage(Image img);
 
 #endif // !IMAGE_H

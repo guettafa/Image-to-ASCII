@@ -1,16 +1,14 @@
-
 /*
  *	STANDARD LIBRARY 
  * */
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 /*
  *	CUSTOM HEADERS
  * */
-#include "../src/include/image.h"
+#include "include/image.h"
 
 /*
  *	PUBLIC DOMAIN LIBRARY	
@@ -21,70 +19,84 @@
 #include "../src/include/extern/stb_image.h"
 #include "../src/include/extern/stb_image_resize2.h"
 
-int main(void) {
 
-	const char filename[] = "../examples/linux.png";
+int main(int argc, char*argv[]) {
 
 	// Declaration of image and pixel struct to store data 
 	Image img;
-	Pixel p;
+	Pixels p;
+
+	// For options
+	char c;
+
+	int w_flag = 0;
+	int h_flag = 0;
+	int f_flag = 0;
+
+	int width_val = 0;
+	int height_val = 0;
+	char* filename_val = NULL;
+
+/*
+	Arguments args;
+
+	// Flags
+	args.w_flag = 0;
+	args.h_flag = 0;
+	args.f_flag = 0;
+
+	// Args values
+	args.width_val = NULL;
+	args.height_val = NULL;
+	args.filename_val = NULL;
+
+	int new_width = 0;	
+	int new_height = 0;	
+*/
+
+	// Verify arguments in execution to see if the user
+	// have a preferred size for his ascii
+	while ((c = getopt(argc, argv, "f:w:h:")) != -1) {
+		switch (c) {
+			case 'f':
+				f_flag = 1;
+				filename_val = optarg;
+				break;	
+			case 'w':
+				w_flag = 1;
+				width_val = atoi(optarg); 
+				break;
+			case 'h':
+				h_flag = 1;
+				height_val = atoi(optarg); 
+				break;
+		}
+	}
 
 	// Extract some informations from the image to store them in the Image struct
 	// and store all image data in a unsigned char  
-	unsigned char *img_data = stbi_load(
-
-		filename, // input file  
-		&img.width, // where to store the image width
-		&img.height, // where to store the image height
-		&img.channels, // where to store the color channels
+	img.all_data = stbi_load(
+		filename_val,   
+		&img.width, 
+		&img.height, 
+		&img.channels,
 		0); // preferred color channels (0 default so the channels of the image)
 	
-	if (img_data == NULL) {
+	if (img.all_data == NULL) {
 		printf("%s\n",stbi_failure_reason());
 		return 1;
 	}
 
-	// Create a index to track which pixel are we looking at 
-	int index;
-	img.total_size = img.width * img.height;
-	
 	// To store the ascii image
-	char* ascii_image = (char*) malloc(img.total_size++);
+	char* ascii_image = (char*) malloc(32000);
 	if (ascii_image == NULL) {
-		goto failure;
-	}
-
-	// Loop trought every pixel of width and height 
-	while (p.y_pos != img.height) {		
-		while (p.x_pos != img.width) {
-			index = (p.y_pos * img.width + p.x_pos) * img.channels;
-
-			/* Store the rgba color of the pixel
-			   Because rgba values are stored like that in each index:
-
-			     R - G - B  - A  -   R - G  ...
-			   {255, 42, 13, 0.2}, {243, 24
-			*/ 			
-			p.r_val = img_data[index]; 
-			p.g_val = img_data[index+=1];
-			p.b_val = img_data[index+=2];
-			p.a_val = img_data[index+=3];
-			p.intensity_val = calculateIntensity(
-				p.r_val, p.g_val, p.b_val, p.a_val);
-
-			char c = intensityToChar(p.intensity_val);
-			printf("%c",c);
-
-			p.x_pos++;
-		}
-		p.x_pos = 0;
-		p.y_pos++;
-
-		printf("\n");
-	}
-	failure:
 		printf("Not allocated\n");
 		return 1;
+	}
+	
+	// This is where the magic begin
+	displayASCII(img);	
 
+	free(ascii_image);
 	return 0;
 }
