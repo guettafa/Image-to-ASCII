@@ -68,13 +68,10 @@ int main(int argc, char*argv[]) {
 	// Functions calls
 	create_ASCII(img, ascii_image);
 	display_ASCII(ascii_image);
-
+	
 	free(ascii_image);
-
 	error:
 		return 1;
-
-	free(ascii_image);
-
+	
 	return 0;
 }
