@@ -7,9 +7,10 @@ OUTPUT_FILE=./build/image2ascii
 # FLAGS 
 
 MATH_LIB=-lm
+TIME_REPORT=-ftime-report
 
 # THE "PUT ALL TOGETHER SPACE"
 
 build:
-	gcc $(MATH_LIB) -ftime-report $(SOURCE_FILE) -o $(OUTPUT_FILE);
+	gcc $(MATH_LIB) $(TIME_REPORT) $(SOURCE_FILE) -o $(OUTPUT_FILE);
 
