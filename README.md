@@ -2,7 +2,7 @@
 
 # Image to ASCII CLI 
 a simple program made with the C programming language to transform 
-an image to ascii art by referring to each pixel intensity.
+an image to ASCII art.
 
 ## Why 
 This program was mainly built to practice myself with the C programming language
