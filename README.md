@@ -1,16 +1,28 @@
 # Image to ASCII CLI 
 
+a simple program made with the C programming language to transform 
+an image to ascii art by referring to each pixel intensity.
+
+<img src="https://count.getloli.com/get/@:image-to-ascii" alt=":guettafa" />
+
+## Why 
+This program was mainly built to practice myself with the C programming language
+and understand how image are interpreted.
+
+## Library I used for this project 
+https://github.com/nothings/stb/blob/master/stb_image.h
+
+## Usage
+`sh
+# To create a executable
+make -B build
+
+# You can execute the program located in the ./build/ directory like that 
+./image2ascii -f theImagePath
+`
+
 ## TODO
 - Add colors
 - Add size options
 
-## Why 
-This program was mainly built to practice myself with the C programming language
 
-## Views
-<img src="https://count.getloli.com/get/@:image-to-ascii" alt=":guettafa" />
-
-
-## TODO
-REGARDER SCOPE DE TOUTES LES VARIABLES
-Utiliser GDB
