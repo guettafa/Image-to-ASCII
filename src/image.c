@@ -51,12 +51,8 @@ char* alloc_ASCII(int width, int height) {
 	char* ascii_image = NULL;
 	int total = width*height;
 	int i=0;
-	if ((ascii_image = (char*) malloc(total)) == NULL) {
+	if ((ascii_image = (char*) calloc(total, sizeof(char))) == NULL) {
 		return NULL;
-	}
-
-	for (; i<total; i++) {
-		ascii_image[i] = ' ';
 	}
 	return ascii_image;
 } 
