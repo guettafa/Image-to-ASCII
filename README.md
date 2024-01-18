@@ -9,3 +9,8 @@ This program was mainly built to practice myself with the C programming language
 
 ## Views
 <img src="https://count.getloli.com/get/@:image-to-ascii" alt=":guettafa" />
+
+
+## TODO
+REGARDER SCOPE DE TOUTES LES VARIABLES
+Utiliser GDB

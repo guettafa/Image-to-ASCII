@@ -1,9 +1,16 @@
-#include "./include/image.h"
+#include "include/image.h"
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*	FUNCTIONS DEFINITIONS		*/
 
-void displayASCII(Image img) {
+/*
+ *	Store the ASCII art in the char* in param
+ *	and refer to the Image struct for dimensions
+ * */
+void create_ASCII(Image img, char* ascii) {
 
 	// Create a index to track which pixel are we looking at 
 	int index;
@@ -26,16 +33,40 @@ void displayASCII(Image img) {
 			img.pixel.intensity_val = calculateIntensity(
 				img.pixel.r_val, img.pixel.g_val, img.pixel.b_val, img.pixel.a_val);
 
-			char c = intensityToChar(img.pixel.intensity_val);
-			printf("%c",c);
-
+			*++ascii = intensityToChar(img.pixel.intensity_val);
 			img.pixel.x_pos++;
 		}
 
+		*ascii = '\n';
 		img.pixel.x_pos = 0;
 		img.pixel.y_pos++;
+	}
+}
 
-		printf("\n");
+/*	
+ *	Alloc enough memory to store 
+ *	each characters for the ascii art in it	
+ */
+char* alloc_ASCII(int width, int height) {
+	char* ascii_image = NULL;
+	int total = width*height;
+	int i=0;
+	if ((ascii_image = (char*) malloc(total)) == NULL) {
+		return NULL;
+	}
+
+	for (; i<total; i++) {
+		ascii_image[i] = ' ';
+	}
+	return ascii_image;
+} 
+
+/*
+ * Display each character in the char_ptr to draw the ASCII art 
+ * */
+void display_ASCII(char* ascii) {
+	while (*++ascii != '\0') {
+		printf("%c",*ascii);
 	}
 }
 

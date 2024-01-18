@@ -14,11 +14,8 @@
  *	PUBLIC DOMAIN LIBRARY	
  * */
 #define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_RESIZE_IMPLEMENTATION
 
-#include "../src/include/extern/stb_image.h"
-#include "../src/include/extern/stb_image_resize2.h"
-
+#include "../src/include/stb/stb_image.h"
 
 int main(int argc, char*argv[]) {
 
@@ -26,50 +23,21 @@ int main(int argc, char*argv[]) {
 	Image img;
 	Pixels p;
 
-	// For options
-	char c;
+	// Alloc enough space to store the ASCII art
+	char* ascii_image = NULL;
 
-	int w_flag = 0;
-	int h_flag = 0;
-	int f_flag = 0;
-
-	int width_val = 0;
-	int height_val = 0;
+	// For filename 
+	int c;
+	int filename_flag = 0;
 	char* filename_val = NULL;
 
-/*
-	Arguments args;
-
-	// Flags
-	args.w_flag = 0;
-	args.h_flag = 0;
-	args.f_flag = 0;
-
-	// Args values
-	args.width_val = NULL;
-	args.height_val = NULL;
-	args.filename_val = NULL;
-
-	int new_width = 0;	
-	int new_height = 0;	
-*/
-
-	// Verify arguments in execution to see if the user
-	// have a preferred size for his ascii
-	while ((c = getopt(argc, argv, "f:w:h:")) != -1) {
+	// Verify argument to get the file path of the image	
+	while ((c = getopt(argc, argv, "f:")) != -1) {
 		switch (c) {
 			case 'f':
-				f_flag = 1;
+				filename_flag = 1;
 				filename_val = optarg;
 				break;	
-			case 'w':
-				w_flag = 1;
-				width_val = atoi(optarg); 
-				break;
-			case 'h':
-				h_flag = 1;
-				height_val = atoi(optarg); 
-				break;
 		}
 	}
 
@@ -77,26 +45,36 @@ int main(int argc, char*argv[]) {
 	// and store all image data in a unsigned char  
 	img.all_data = stbi_load(
 		filename_val,   
-		&img.width, 
-		&img.height, 
-		&img.channels,
+		(int*) &img.width, 
+		(int*) &img.height, 
+		(int*) &img.channels,
 		0); // preferred color channels (0 default so the channels of the image)
+	 
 	
 	if (img.all_data == NULL) {
 		printf("%s\n",stbi_failure_reason());
-		return 1;
+		goto error;
 	}
 
-	// To store the ascii image
-	char* ascii_image = (char*) malloc(32000);
+	
+	// Alloc enough space to store the ASCII art
+	ascii_image = alloc_ASCII(img.width, img.height);
+
 	if (ascii_image == NULL) {
 		printf("Not allocated\n");
-		return 1;
+		goto error;
 	}
-	
-	// This is where the magic begin
-	displayASCII(img);	
+
+	// Functions calls
+	create_ASCII(img, ascii_image);
+	display_ASCII(ascii_image);
 
 	free(ascii_image);
+
+	error:
+		return 1;
+
+	free(ascii_image);
+
 	return 0;
 }

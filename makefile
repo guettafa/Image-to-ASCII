@@ -11,6 +11,5 @@ MATH_LIB=-lm
 # THE "PUT ALL TOGETHER SPACE"
 
 build:
-	rm -rf $(OUTPUT_FILE)
-	gcc $(MATH_LIB) $(SOURCE_FILE) -o $(OUTPUT_FILE);
+	gcc $(MATH_LIB) -ftime-report $(SOURCE_FILE) -o $(OUTPUT_FILE);
 
