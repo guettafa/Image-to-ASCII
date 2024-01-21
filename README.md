@@ -11,6 +11,25 @@ and understand how image are interpreted.
 ## Library I used for this project 
 [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h)
 
+## Requirements
+
+- Make
+
+```sh
+# Debian
+sudo apt install make
+
+# Arch
+sudo pacman -S make
+
+# Windows
+
+# with choco  
+choco install make 
+# or just download the make.exe
+
+```
+
 ## Usage
 ```sh
 # To create a executable
