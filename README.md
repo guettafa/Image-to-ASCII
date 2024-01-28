@@ -1,6 +1,6 @@
 <img src="https://count.getloli.com/get/@:image-to-ascii" alt=":guettafa" />
 
-# Image to ASCII CLI 
+# Image to ASCII 
 a simple program made with the C programming language to transform 
 an image to ASCII art.
 
