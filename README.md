@@ -1,4 +1,5 @@
 # Image to ASCII 
+<img src="https://socialify.git.ci/guettafa/Image-to-ASCII/image?font=KoHo&language=1&name=1&owner=1&pattern=Plus&stargazers=1&theme=Auto" alt="Image-to-ASCII" width="640" height="320" />
 a simple program made with the C programming language to transform 
 an image to ASCII art.
 
