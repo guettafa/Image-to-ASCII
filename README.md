@@ -1,5 +1,5 @@
 # Image to ASCII 
-![Image-to-ASCII](https://socialify.git.ci/guettafa/Image-to-ASCII/image?language=1&name=1&owner=1&theme=Dark)
+![Image-to-ASCII](https://socialify.git.ci/guettafa/Image-to-ASCII/image?language=1&owner=1&name=1&stargazers=1&theme=Light)
 a simple program made with the C programming language to transform 
 an image to ASCII art.
 
