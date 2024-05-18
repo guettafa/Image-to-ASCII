@@ -1,7 +1,9 @@
 # Image to ASCII 
-![Image-to-ASCII](https://socialify.git.ci/guettafa/Image-to-ASCII/image?language=1&owner=1&name=1&stargazers=1&theme=Light)
 a simple program made with the C programming language to transform 
 an image to ASCII art.
+
+![example](https://github.com/guettafa/Image-to-ASCII/assets/81649039/bced37d2-3481-4f31-aec3-60103cb34b13)
+
 
 ## Why 
 This program was mainly built to practice myself with the C programming language
