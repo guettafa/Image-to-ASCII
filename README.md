@@ -12,11 +12,7 @@ and understand how image are interpreted.
 ## Library I used for this project 
 [stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h)
 
-## WAIT
-I am unable to guarantee that it is functional on either Windows or macOS. Regardless, I am confident that it works on Arch and Debian based distros.
-
 ## Requirements
-
 - Make
 
 ```sh
@@ -25,7 +21,6 @@ sudo apt install make
 
 # Arch
 sudo pacman -S make
-
 ```
 
 ## Usage
